@@ -4,26 +4,32 @@
 int main() {
     FILE *f = fopen("in.txt","r");
     char buf[4096], *c, tmp, add;
-    int len, total = 0, id = 1, store, rbg[4] = {0};
+    // rbg = color data in order of word length
+    int len, total = 0, id = 0, store, rbg[4] = {0};
     while (fgets((c = buf), 4096, f) && (len = strlen(c))) {
-        c += 5;
-        while ((tmp = *c++) < 58 && tmp > 47) {
-            id = id * 10 + tmp - 48;
-        }
+        // jump to first numerical char
+        while (*c++ != ':');
         c++;
+        id++;
         add = 1;
+        // iterate over all games
         while (c < buf + len) {
-            memset(rbg, 0, 4 * sizeof(int));
+            // clear rbg data
+            memset(rbg, 0, 3 * sizeof(int));
+            // get current game data
             for (int i = 0; i < 3 && c < buf + len; i++) {
+                // store number, knowing current index can only be ones or tens place
                 store = (*(c + 1) == ' ' ? *((c += 2) - 2) : (*c - 48) * 10 + *((c += 3) - 2)) - 48;
+                // jump by 5, 6, 7, or 0 based on red, blue, green or bad read
                 rbg[(tmp = *c == 'r' ? 5 : *c == 'b' ? 6 : *c == 'g' ? 7 : 8) - 5] = store;
                 c += tmp != 8 ? tmp : 0;
+                // ';' used in input format as game delimiter
                 if (*(c - 2) == ';') break;
             }
             if (rbg[0] > 12 || rbg[2] > 13 || rbg[1] > 14) add = 0;
         }
+        // add if current game satisfies conditions
         if (add) total += id;
-        id = 0;
     }
     printf("total %d\n", total);
     fclose(f);
