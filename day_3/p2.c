@@ -37,7 +37,7 @@ int main() {
                     if ((c = line[j][start]) != '.' && c > 0 && c != 10 && (c >= 58 || c <= 47)) {
                         // if symbol found: update adjacent gears
                         if (found_sym = 1) {
-                            for (int start = i - digits - 1 > 0 ? i - digits - 1 : 0; num != 0 && start < i + 1 && start < LEN; start++) {
+                            for (start = i - digits - 1 > 0 ? i - digits - 1 : 0; num != 0 && start < i + 1 && start < LEN; start++) {
                                 for (int j = 0; j < 3; j++) {
                                     if (line[j][start] == '*') {
                                         gear[j][start] *= num;
