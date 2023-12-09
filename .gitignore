@@ -1,4 +1,10 @@
 *.txt
 *.out
 *.sh
+*.o
 run
+test
+p1
+p2
+p1_*
+p2_*
