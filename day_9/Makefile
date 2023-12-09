@@ -1,10 +1,10 @@
 CC := gcc
 CFLAGS := -c -I../lib/include/
-LDFLAGS := -lm 
+LDFLAGS := 
 
 OBJ_DIR := obj
 
-CUSTOM_LIBS :=
+CUSTOM_LIBS := str_utils
 LIBSRC := $(patsubst %, ../lib/src/%.c, $(CUSTOM_LIBS))
 LIBOBJ := $(patsubst %, $(OBJ_DIR)/%.o, $(CUSTOM_LIBS))
 SRC := $(wildcard *.c)
@@ -16,7 +16,6 @@ all: makedir libs build
 libs: $(LIBOBJ)
 	
 $(LIBOBJ): $(LIBSRC)
-	echo $@
 	$(CC) $(CFLAGS) -o $@ $(patsubst obj/%.o, ../lib/src/%.c, $@)
 
 makedir:
