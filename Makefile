@@ -1,4 +1,5 @@
-DIRS := $(wildcard day_*/.)
+DIRS := lib
+DIRS += $(wildcard day_*/.)
 
 all: $(DIRS)
 $(DIRS):
