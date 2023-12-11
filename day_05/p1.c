@@ -35,11 +35,10 @@ int main() {
     // iterate for each map set, each seed, each map in set
     for (i = 0; !(current = 0) && i < 7; ++i) {
         for ((j = 0); (should_append = 1) && j < seed_max; ++j) {
-            for (k = 0; should_append && k < map_max[i]; ++k) {
+            for (k = 0; should_append && k < map_max[i]; ++k) 
                 if (seeds[j] >= maps[i][k].left && seeds[j] <= maps[i][k].right)
                     // if seed matches map, put in set
                     !(should_append = 0) && (seeds_store[current++] = seeds[j] - maps[i][k].left + maps[i][k].seek);
-            }
             // if seed did not match range, insert directly without change
             if (should_append) seeds_store[current++] = seeds[j];
         }

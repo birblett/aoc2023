@@ -1,5 +1,5 @@
 CC := gcc
-CFLAGS := -c -I../lib/include/
+CFLAGS := -c -I../lib/include/ -I../lib/header_only/
 LDFLAGS := -lm
 CUSTOM_LIBS :=
 

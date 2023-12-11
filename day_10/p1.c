@@ -3,13 +3,12 @@
 
 int main() {
     FILE* f = fopen("in.txt", "r");
-    char buf[8192], c, in[200][200] = {{0}}, paths[3][3] = {{'7', '|', 'F'}, {'-', 'S', '-'},{'J', '|', 'L'}};
+    char buf[8192], c, in[141][141] = {{0}}, paths[3][3] = {{'7', '|', 'F'}, {'-', 'S', '-'},{'J', '|', 'L'}};
     int i, y, x, dy, dx, sy, sx, swap, len, lines = 1, vert = 0, hori = 0, steps = 1;
     for (;fgets(buf, 8192, f) && !(i = 0); lines++) {
-        while((c = *(buf + i++)))
-            if (c == 'S') sy = lines - 1, sx = i - 1;
-            else if (c == '\n') *(buf + i - 1) = '\0';
-        memcpy(in[lines - 1], buf, (len = strlen(buf)));
+        while((c = *(buf + i++))) if (c == 'S') sy = lines - 1, sx = i - 1;
+        memcpy(in[lines - 1], buf, (len = 140));
+        in[lines - 1][140] = 140;
     }
     // determine pipe shape of S and write back to array
     if (sy > 0 && ((c = in[sy - 1][sx]) == '|' || c == '7' || c == 'F')) vert = 1;

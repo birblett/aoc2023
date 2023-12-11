@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "inline.h"
 
 #define SEED_MAX 1000
 #define MAP_MAX 1000
-#define MIN(a,b) (((a)<(b))?(a):(b))
-#define MAX(a,b) (((a)>(b))?(a):(b))
 
 // struct representing maps seek and left/right range values
 typedef struct m {
@@ -40,15 +39,14 @@ int main() {
     // iterate for each map set, each seed, each map in set
     for (i = 0; !(current = 0) && i < 7; ++i) {
         for ((j = 0); (should_append = 1) && j < seed_max; ++j) {
-            for (k = 0; should_append && k < map_max[i]; ++k) {
+            for (k = 0; should_append && k < map_max[i]; ++k) 
                 left = maps[i][k].left, right = maps[i][k].right, seek = maps[i][k].seek, rangel = seeds[j].left, ranger = seeds[j].right;
-                if (MAX(rangel, left) < MIN(ranger, right)) {
+                if (imax(rangel, left) < imin(ranger, right)) {
                     if (rangel < left) seeds[seed_max++] = (map){0, rangel, left - 1};
                     if (ranger > right) seeds[seed_max++] = (map){0, right + 1, ranger};
                     // put matching seed range in set, put in set
-                    seeds_store[current++] = (map){(should_append = 0), MAX(rangel, left) - left + seek, MIN(ranger, right) - left + seek};
+                    seeds_store[current++] = (map){(should_append = 0), imax(rangel, left) - left + seek, imin(ranger, right) - left + seek};
                 }
-            }
             // if seed did not match range, insert directly without change
             if (should_append) seeds_store[current++] = seeds[j];
         }
