@@ -1,3 +1,7 @@
+/**
+ * string parsing-related utilities
+ */
+
 #ifndef STRUTILS_H
 #define STRUTILS_H
 
